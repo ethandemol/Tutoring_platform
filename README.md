@@ -44,7 +44,7 @@ sparqit-new/
   ```env
   PORT=5001
   NODE_ENV=development
-  DATABASE_URL=postgresql://sparqit_user:sparqit_password_123@localhost:5432/sparqit_new
+  DATABASE_URL=postgresql://username:password@host:port/database
   JWT_SECRET=your-super-secret-jwt-key
   JWT_EXPIRES_IN=7d
   CORS_ORIGIN=http://localhost:8080
