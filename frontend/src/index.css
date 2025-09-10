@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    --primary: 220 80% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 20% 96%;
+    --secondary-foreground: 220 80% 25%;
+
+    --muted: 220 20% 96%;
+    --muted-foreground: 220 15% 55%;
+
+    --accent: 220 20% 94%;
+    --accent-foreground: 220 80% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+    --ring: 220 80% 25%;
+
+    --radius: 0.75rem;
+
+    /* EDtech specific colors */
+    --navy: 220 80% 25%;
+    --navy-light: 220 60% 35%;
+    --navy-dark: 220 90% 15%;
+    --surface: 0 0% 99%;
+    --surface-hover: 220 20% 96%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--navy)), hsl(var(--navy-light)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--background)), hsl(var(--surface)));
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(var(--navy) / 0.08);
+    --shadow-md: 0 4px 16px hsl(var(--navy) / 0.12);
+    --shadow-lg: 0 8px 32px hsl(var(--navy) / 0.16);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-quick: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  h4 {
+    @apply text-xl font-semibold;
+  }
+
+  h5 {
+    @apply text-lg font-semibold;
+  }
+
+  h6 {
+    @apply text-base font-semibold;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+}
+
+/* Custom prose styling for consistent spacing */
+@layer components {
+  .font-display {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-weight: 400;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .prose {
+    @apply text-foreground;
+  }
+  
+  .prose p {
+    @apply mb-4 last:mb-0;
+  }
+  
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    @apply mb-4 mt-6 first:mt-0;
+  }
+  
+  .prose ul, .prose ol {
+    @apply mb-4 pl-6;
+  }
+  
+  .prose li {
+    @apply mb-1;
+  }
+  
+  .prose blockquote {
+    @apply mb-4 border-l-4 border-primary/20 pl-4 italic;
+  }
+  
+  .prose strong {
+    @apply font-semibold text-foreground;
+  }
+  
+  .prose em {
+    @apply italic;
+  }
+  
+  .prose code {
+    @apply rounded bg-muted px-1 py-0.5 text-sm font-mono;
+  }
+  
+  .prose pre {
+    @apply mb-4 rounded-lg bg-muted p-4 overflow-x-auto;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+}
+
+/* React-PDF TextLayer Styles */
+.react-pdf__Page__text__textLayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 0.2;
+  line-height: 1.0;
+}
+
+.react-pdf__Page__text__textLayer > span {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.react-pdf__Page__text__textLayer ::selection {
+  background: rgba(0, 0, 255, 0.3);
+}
+
+.react-pdf__Page__text__textLayer ::-moz-selection {
+  background: rgba(0, 0, 255, 0.3);
+}
+
+.react-pdf__Page__text__textLayer .highlight {
+  margin: -1px;
+  padding: 1px;
+  background-color: rgb(180, 0, 170);
+  border-radius: 4px;
+}
+
+.react-pdf__Page__text__textLayer .highlight.begin {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.react-pdf__Page__text__textLayer .highlight.end {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.react-pdf__Page__text__textLayer .highlight.middle {
+  border-radius: 0px;
+}
+
+.react-pdf__Page__text__textLayer .highlight.selected {
+  background-color: rgb(0, 100, 0);
+}
+
+/* PDF Viewer Styles */
+.single-page-view iframe {
+  /* Hide navigation elements in single page view */
+  filter: brightness(1) contrast(1);
+}
+
+/* Alternative approach: try to hide PDF navigation via CSS */
+.single-page-view iframe {
+  /* This might work for some PDF viewers */
+  --pdf-nav-display: none;
+}
+
+/* Hide PDF.js navigation and download button in iframe */
+.single-page-view iframe,
+.single-page-view iframe html,
+.single-page-view iframe body {
+  /* No-op, but needed for specificity */
+}
+
+.single-page-view iframe,
+.single-page-view iframe * {
+  /* Try to hide PDF.js UI elements */
+  --pdfjs-toolbar-display: none !important;
+}
+
+/* For PDF.js default viewer */
+iframe[src*="preview"]::-webkit-scrollbar {
+  display: none !important;
+}
+
+iframe[src*="preview"] .toolbar,
+iframe[src*="preview"] .secondaryToolbar,
+iframe[src*="preview"] .sidebarContainer,
+iframe[src*="preview"] .download,
+iframe[src*="preview"] .print,
+iframe[src*="preview"] .findbar,
+iframe[src*="preview"] .viewBookmark,
+iframe[src*="preview"] .openFile,
+iframe[src*="preview"] .presentationMode,
+iframe[src*="preview"] .toolbarButton,
+iframe[src*="preview"] .toolbarButton.download,
+iframe[src*="preview"] .toolbarButton.print {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Scrollbar utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}

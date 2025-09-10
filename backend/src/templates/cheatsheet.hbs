@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0.8cm;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 8pt;
+            line-height: 1.1;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .header h1 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 0 0 3px 0;
+        }
+        
+        .header .course-info {
+            font-size: 7pt;
+            color: #666;
+        }
+        
+        .header .date {
+            font-size: 7pt;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        .cheatsheet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .section {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #fff;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            font-size: 9pt;
+            color: #495057;
+            margin-bottom: 8px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .item {
+            margin-bottom: 6px;
+            padding: 3px 0;
+        }
+        
+        .item-title {
+            font-weight: bold;
+            font-size: 8pt;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        
+        .item-content {
+            font-size: 7pt;
+            color: #666;
+            line-height: 1.2;
+        }
+        
+        .formula {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 4px 6px;
+            margin: 3px 0;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 7pt;
+        }
+        
+        .definition {
+            border-left: 2px solid #007bff;
+            padding-left: 6px;
+            margin: 4px 0;
+        }
+        
+        .example {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 4px 6px;
+            margin: 3px 0;
+            border-radius: 3px;
+            font-style: italic;
+        }
+        
+        .key-point {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 4px 6px;
+            margin: 3px 0;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 7pt;
+            color: #666;
+            padding: 5px 0;
+            border-top: 1px solid #ccc;
+            background-color: #fff;
+        }
+        
+        .page-number {
+            position: fixed;
+            bottom: 5px;
+            right: 10px;
+            font-size: 7pt;
+            color: #666;
+        }
+        
+        .katex {
+            font-size: 0.8em;
+        }
+        
+        .katex-display {
+            margin: 0.2em 0;
+            text-align: center;
+        }
+        
+        /* Compact lists */
+        ul, ol {
+            margin: 0;
+            padding-left: 12px;
+        }
+        
+        li {
+            margin-bottom: 2px;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 7pt;
+            margin: 4px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 3px 4px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        /* Ensure proper page breaks */
+        .section {
+            page-break-inside: avoid;
+        }
+        
+        /* Print styles */
+        @media print {
+            .section {
+                break-inside: avoid;
+            }
+        }
+        
+        /* Responsive for smaller screens */
+        @media (max-width: 800px) {
+            .cheatsheet-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{title}}</h1>
+        <div class="course-info">{{courseName}}</div>
+        <div class="date">{{generatedAt}}</div>
+    </div>
+    
+    <div class="cheatsheet-grid">
+        {{#each sections}}
+        <div class="section">
+            <div class="section-title">{{title}}</div>
+            
+            {{#each items}}
+            <div class="item">
+                {{#if title}}
+                <div class="item-title">{{title}}</div>
+                {{/if}}
+                
+                <div class="item-content">
+                    {{#if type}}
+                        {{#ifEquals type "formula"}}
+                            <div class="formula">{{{katex content}}}</div>
+                        {{else ifEquals type "definition"}}
+                            <div class="definition">{{{content}}}</div>
+                        {{else ifEquals type "example"}}
+                            <div class="example">{{{content}}}</div>
+                        {{else ifEquals type "key_point"}}
+                            <div class="key-point">{{{content}}}</div>
+                        {{else ifEquals type "list"}}
+                            <ul>
+                                {{#each content}}
+                                <li>{{{this}}}</li>
+                                {{/each}}
+                            </ul>
+                        {{else ifEquals type "table"}}
+                            <table>
+                                {{#each content}}
+                                <tr>
+                                    {{#each this}}
+                                    <td>{{{this}}}</td>
+                                    {{/each}}
+                                </tr>
+                                {{/each}}
+                            </table>
+                        {{else}}
+                            {{{content}}}
+                        {{/ifEquals}}
+                    {{else}}
+                        {{{content}}}
+                    {{/if}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        {{/each}}
+    </div>
+    
+    <div class="footer">
+        <div class="page-number">Page <span class="page"></span></div>
+    </div>
+    
+    <script>
+        // Render KaTeX math expressions
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            throwOnError: false
+        });
+        
+        // Add page numbers
+        document.addEventListener('DOMContentLoaded', function() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach((page, index) => {
+                page.textContent = index + 1;
+            });
+        });
+    </script>
+</body>
+</html> 

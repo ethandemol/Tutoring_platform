@@ -1,0 +1,23 @@
+# Railway Deployment Environment Variables Template
+# Copy this file and fill in your actual values
+
+# Backend Environment Variables
+DATABASE_URL=postgresql://username:password@host:port/database
+JWT_SECRET=your-super-secret-jwt-key-here
+JWT_EXPIRES_IN=7d
+CORS_ORIGIN=https://your-frontend-url.railway.app
+AWS_ACCESS_KEY_ID=your-aws-access-key
+AWS_SECRET_ACCESS_KEY=your-aws-secret-key
+AWS_REGION=us-east-1
+AWS_S3_BUCKET_NAME=your-s3-bucket-name
+OPENAI_API_KEY=your-openai-api-key
+NODE_ENV=production
+PORT=5002
+
+# Frontend Environment Variables
+VITE_API_URL=https://your-backend-url.railway.app
+PORT=8080
+
+# Optional: Additional configuration
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100000 
